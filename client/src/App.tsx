@@ -1,7 +1,10 @@
+import LoginPage from "./pages/Login";
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <LoginPage />
+    </div>
   )
 }
 

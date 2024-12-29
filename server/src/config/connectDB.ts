@@ -1,9 +1,9 @@
 import { connect } from "mongoose";
-import { MONGOURI } from "./env";
+import { MONGO_URI } from "./env";
 
 const connectDB = async()=>{
     try {
-        await connect(MONGOURI)
+        await connect(MONGO_URI)
     } catch (error) {
         console.log(error);
         process.exit(1);
