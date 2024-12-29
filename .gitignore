@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Node Modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment Variables
+.env
+client/.env
+server/.env
+
+# Build Output
+dist/
+build/
+client/build/
+server/dist/
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Dependency Directories
+client/pnpm-lock.yaml
+server/pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# Coverage Reports
+coverage/
+
+# Debugger Outputs
+*.tgz
+*.gz
+
+# Misc
+client/.next/
+client/out/
+client/.vercel/
+server/.vercel/
+.next/
+out/
