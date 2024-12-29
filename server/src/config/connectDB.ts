@@ -3,7 +3,7 @@ import { MONGOURI } from "./env";
 
 const connectDB = async()=>{
     try {
-        connect(MONGOURI)
+        await connect(MONGOURI)
     } catch (error) {
         console.log(error);
         process.exit(1);
