@@ -23,4 +23,9 @@ export default class AdminController {
             next(error);
         }
     }
+
+    async logout (req: Request, res: Response, next: NextFunction){
+        res.clearCookie("admin_token");
+        res.status(StatusCode.Success).json({message:"Cookie Cleared"})
+    }
 }

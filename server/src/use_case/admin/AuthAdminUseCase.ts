@@ -20,4 +20,5 @@ export default class AuthAdminUseCase {
 
         return { refreshToken, accessToken };
     }
+
 }

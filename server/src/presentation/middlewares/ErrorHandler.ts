@@ -5,7 +5,7 @@ import CustomError from "../../domain/entities/CustomErrors";
 
 export default class ErrorHandler {
     constructor() {
-        this.exec.bind(this);
+        this.exec = this.exec.bind(this)
     }
     exec(err: any, req: Request, res: Response, next: NextFunction) {
         const statusCode = err.statusCode || StatusCode.InternalServerError;

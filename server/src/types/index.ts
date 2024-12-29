@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export enum StatusCode {
     Success = 200,
     Created = 201,
@@ -21,4 +23,11 @@ export enum StatusCode {
 export enum UserRole {
     Admin = 'admin',
     User = "user"
+} 
+
+export interface CustomRequest extends Request {
+    user?: {
+        id: string;
+        email: string;
+    };
 }

@@ -1,7 +1,7 @@
-import { JwtPayload, sign, TokenExpiredError, verify } from "jsonwebtoken";
-import ITokenService from "../../domain/interfaces/ITokenService";
 import { UserRole } from "../../types";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../config/env";
+import ITokenService from "../../domain/interfaces/ITokenService";
+import { JwtPayload, sign, TokenExpiredError, verify } from "jsonwebtoken";
+import { ACCESS_TOKEN_SECRET, NODE_ENV, REFRESH_TOKEN_SECRET } from "../../config/env";
 import { AuthenticationError, AuthorizationError } from "../../domain/entities/CustomErrors";
 
 export default class TokenService implements ITokenService {
@@ -16,7 +16,7 @@ export default class TokenService implements ITokenService {
             if (error instanceof TokenExpiredError) {
                 throw new AuthenticationError("Token Expired");
             }
-            throw new AuthorizationError("Token Expired");
+            throw new AuthorizationError("Invalid token provided");
         }
     }
 
@@ -28,7 +28,8 @@ export default class TokenService implements ITokenService {
         return { email, id };
     }
     createAccessToken(email: string, id: string, role: UserRole): string {
-        return this.createToken({ email, id, role }, ACCESS_TOKEN_SECRET, "15m");
+        const time = NODE_ENV === "production" ? "15m" : "2d";
+        return this.createToken({ email, id, role }, ACCESS_TOKEN_SECRET, time);
     }
     verifyAccessToken(token: string): { email: string; id: string; role: UserRole; } {
         const { email, id, role } = this.verifyToken(token, ACCESS_TOKEN_SECRET);
