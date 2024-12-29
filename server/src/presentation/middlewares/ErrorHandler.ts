@@ -1,7 +1,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import { StatusCode } from "../../types";
-import CustomError from "../../domain/CustomError";
+import CustomError from "../../domain/entities/CustomErrors";
 
 export default class ErrorHandler {
     constructor() {
@@ -13,14 +13,12 @@ export default class ErrorHandler {
         const stack = err.stack;
 
         if (err instanceof CustomError) {
-            console.error(err, {
-                stack
-            });
+            console.error(err);
             res.status(statusCode).json({ message });
             return;
         }
 
-        console.error(err);
+        console.error(err, { stack });
 
         res.status(statusCode).json({ message });
     }

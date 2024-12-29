@@ -17,3 +17,8 @@ export enum StatusCode {
     ServiceUnavailable = 503,
     RateLimitExceeded = 429
 }
+
+export enum UserRole {
+    Admin = 'admin',
+    User = "user"
+}

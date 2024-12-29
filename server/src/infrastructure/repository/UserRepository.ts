@@ -1,6 +1,6 @@
-import IUser from "../domain/IUser";
-import IUserRepository from "../domain/IUserRepository";
-import User from "./User";
+import IUser from "../../domain/entities/IUser";
+import IUserRepository from "../../domain/interfaces/IUserRepository";
+import User from "../model/User";
 
 export default class UserRepository implements IUserRepository {
     model = User;
