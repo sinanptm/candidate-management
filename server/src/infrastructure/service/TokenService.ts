@@ -1,5 +1,5 @@
 import { UserRole } from "../../types";
-import ITokenService from "../../domain/interfaces/ITokenService";
+import ITokenService from "../../domain/interfaces/services/ITokenService";
 import { JwtPayload, sign, TokenExpiredError, verify } from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET, NODE_ENV, REFRESH_TOKEN_SECRET } from "../../config/env";
 import { AuthenticationError, AuthorizationError } from "../../domain/entities/CustomErrors";

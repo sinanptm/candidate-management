@@ -1,4 +1,4 @@
-import ITokenService from "../../domain/interfaces/ITokenService";
+import ITokenService from "../../domain/interfaces/services/ITokenService";
 import IUserRepository from "../../domain/interfaces/IUserRepository";
 
 export default class AuthUserUseCase {

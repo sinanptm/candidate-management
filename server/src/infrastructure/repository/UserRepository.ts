@@ -1,3 +1,4 @@
+import { ConflictError } from "../../domain/entities/CustomErrors";
 import IUser from "../../domain/entities/IUser";
 import IUserRepository from "../../domain/interfaces/IUserRepository";
 import User from "../model/User";
@@ -6,7 +7,14 @@ export default class UserRepository implements IUserRepository {
     model = User;
 
     async create(user: IUser): Promise<IUser> {
-        return await this.model.create(user);
+        try {
+            return await this.model.create(user);
+        } catch (error: any) {
+            if (error.code === 11000) {
+                throw new ConflictError("User with this email already exists");
+            }
+            throw error;
+        }
     }
 
     async update(id: string, user: IUser): Promise<IUser | null> {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import ITokenService from "../../domain/interfaces/ITokenService";
+import ITokenService from "../../domain/interfaces/services/ITokenService";
 import { StatusCode, UserRole } from "../../types";
 
 export default class AdminAuthMiddleWare {
