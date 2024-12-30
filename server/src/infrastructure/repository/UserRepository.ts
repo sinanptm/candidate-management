@@ -13,11 +13,19 @@ export default class UserRepository implements IUserRepository {
         return this.model.findByIdAndUpdate(id, user);
     }
 
-    findByEmail(email: string): Promise<IUser | null> {
-        return this.model.findOne({ email });
+    async findByEmail(email: string): Promise<IUser | null> {
+        return await this.model.findOne({ email });
     }
 
-    findById(id: string): Promise<IUser | null> {
-        return this.model.findById(id);
+    async findById(id: string): Promise<IUser | null> {
+        return await this.model.findById(id);
+    }
+
+    async delete(id: string): Promise<void> {
+        await this.model.findByIdAndDelete(id);
+    }
+
+    async getAll(): Promise<IUser[]> {
+        return await this.model.find();
     }
 }

@@ -1,5 +1,5 @@
 import { NextFunction } from "express";
-import LoginUserUseCase from "../../use_case/user/LoginUserUseCase";
+import LoginUserUseCase from "../../use_case/auth/AuthUserUseCase";
 
 export default class UserController {
     constructor(

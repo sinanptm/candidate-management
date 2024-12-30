@@ -1,7 +1,7 @@
 import ITokenService from "../../domain/interfaces/ITokenService";
 import IUserRepository from "../../domain/interfaces/IUserRepository";
 
-export default class LoginUserUseCase {
+export default class AuthUserUseCase {
     constructor(
         readonly userRepository: IUserRepository,
         readonly tokenService: ITokenService

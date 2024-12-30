@@ -17,6 +17,7 @@ app.use(cors({
 
 app.use("/api", router);
 
+
 app.listen(PORT, () => {
     connectDB();
     console.log('server start listening on ', PORT);

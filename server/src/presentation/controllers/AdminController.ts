@@ -1,11 +1,45 @@
 import { NextFunction, Request, Response } from "express";
-import AuthAdminUseCase from "../../use_case/admin/AuthAdminUseCase";
+import AuthAdminUseCase from "../../use_case/auth/AuthAdminUseCase";
 import { StatusCode } from "../../types";
+import AdminUseCase from "../../use_case/AdminUseCase";
 
 export default class AdminController {
     constructor(
-       private  readonly authUseCase: AuthAdminUseCase
+        private readonly authUseCase: AuthAdminUseCase,
+        private readonly adminUseCase: AdminUseCase
     ) { }
+
+    async getUsers(req: Request, res: Response, next: NextFunction) {
+        try {
+            const users = await this.adminUseCase.getUsers();
+
+            res.status(StatusCode.Success).json({ users });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async createUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const user = req.body;
+            const createdUser = await this.adminUseCase.createUser(user);
+
+            res.status(StatusCode.Success).json({ user: createdUser });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async deleteUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = req.params.id;
+            await this.adminUseCase.deleteUser(id);
+
+            res.status(StatusCode.Success).json({ message: "User Deleted Successfully" });
+        } catch (error) {
+            next(error);
+        }
+    }
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
@@ -24,8 +58,8 @@ export default class AdminController {
         }
     }
 
-    async logout (req: Request, res: Response, next: NextFunction){
+    async logout(req: Request, res: Response, next: NextFunction) {
         res.clearCookie("admin_token");
-        res.status(StatusCode.Success).json({message:"Cookie Cleared"})
+        res.status(StatusCode.Success).json({ message: "Cookie Cleared" });
     }
 }
