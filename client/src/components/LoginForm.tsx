@@ -52,7 +52,7 @@ const LoginForm = ({ onSubmit, isAdmin, error, setError }: Props) => {
                     id="email"
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@example.com"
+                    placeholder="john@example.com"
                   />
                 </div>
                 <div className="grid gap-2">

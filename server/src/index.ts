@@ -18,9 +18,7 @@ app.use(cors({
     exposedHeaders: ['set-cookie']
 }));
 
-
 app.use("/api", router);
-
 
 app.listen(PORT, () => {
     connectDB();

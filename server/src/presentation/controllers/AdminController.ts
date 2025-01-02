@@ -68,7 +68,6 @@ export default class AdminController {
                 maxAge: 30 * 24 * 60 * 60 * 1000, 
                 sameSite: 'lax',  
                 secure: NODE_ENV === 'production',
-                path: '/'
             });
 
 
