@@ -1,39 +1,18 @@
-import  {IUser} from "@/types";
+import { IUser } from "@/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { Button } from "./ui/button";
-import { Dispatch, SetStateAction, useCallback } from "react";
-import { deleteCandidate } from "@/lib/api/admin.api";
-import { toast } from "@/hooks/use-toast";
+import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import { CandidateDetailsModal } from "./CandidateDetailsModel";
+import { DeleteConfirmationModal } from "./DeleteCandidateModel";
 
 type ListProps = {
   candidates: IUser[];
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
   setCandidates: Dispatch<SetStateAction<IUser[]>>;
 };
 
-const CandidateList = ({ candidates, setCandidates, setLoading, loading }: ListProps) => {
+const CandidateList = ({ candidates, setCandidates }: ListProps) => {
   const handleDeleteCandidate = useCallback(async (id: string) => {
-    try {
-      setLoading(true);
-      await deleteCandidate(id);
-      setCandidates(prev => prev.filter(candidate => candidate._id !== id));
-      toast({
-        title: "Candidate Deleted",
-        description: "The candidate has been successfully removed.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Failed to delete candidate.",
-        description: error.response.data.message || "Unkown error occurred. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    setCandidates(prev => prev.filter(candidate => candidate._id !== id));
   }, []);
-
   return (
     <Table>
       <TableHeader>
@@ -51,13 +30,10 @@ const CandidateList = ({ candidates, setCandidates, setLoading, loading }: ListP
             <TableCell>{candidate.email}</TableCell>
             <TableCell>{candidate.mobile}</TableCell>
             <TableCell className="space-x-2">
-              <Button
-                variant="destructive"
-                onClick={() => candidate._id && handleDeleteCandidate(candidate._id)}
-                disabled={loading}
-              >
-                Delete
-              </Button>
+              <DeleteConfirmationModal
+                candidate={candidate}
+                onDelete={handleDeleteCandidate}
+              />
               <CandidateDetailsModal candidate={candidate} />
             </TableCell>
           </TableRow>
@@ -67,4 +43,4 @@ const CandidateList = ({ candidates, setCandidates, setLoading, loading }: ListP
   );
 };
 
-export default CandidateList;
+export default memo(CandidateList);

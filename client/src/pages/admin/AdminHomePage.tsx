@@ -55,7 +55,7 @@ const AdminHomePage = () => {
             {loading ? (
               <p>Loading candidates...</p>
             ) : (
-              <CandidateList loading={loading} setCandidates={setCandidates} setLoading={setLoading} candidates={candidates} />
+              <CandidateList setCandidates={setCandidates} candidates={candidates} />
             )}
           </CardContent>
         </Card>
