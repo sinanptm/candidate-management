@@ -1,7 +1,7 @@
 import { baseURL } from '@/config';
 import axios from 'axios';
 import { getToken } from '../utils';
-import {  UserRole } from '@/types';
+import { IUser, UserRole } from '@/types';
 
 const instance = axios.create({
     baseURL,
@@ -10,17 +10,6 @@ const instance = axios.create({
         'Content-Type': 'application/json'
     },
 });
-
-instance.interceptors.request.use(
-    (config) => {
-        const token = getToken(UserRole.User);
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
 
 instance.interceptors.request.use(
     (config) => {
@@ -65,5 +54,10 @@ instance.interceptors.response.use(
 
 export const userLogin = async (email: string, password: string) => {
     const response = await axios.post(`${baseURL}/login`, { email, password });
+    return response.data;
+};
+
+export const getUserProfile = async ():Promise<IUser> => {
+    const response = await instance.get("/profile");
     return response.data;
 };

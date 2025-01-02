@@ -2,13 +2,26 @@ import { NextFunction, Request, Response } from "express";
 import LoginUserUseCase from "../../use_case/auth/AuthUserUseCase";
 import UserUseCase from "../../use_case/UserUseCase";
 import { NODE_ENV } from "../../config/env";
-import { StatusCode } from "../../types";
+import { CustomRequest, StatusCode } from "../../types";
 
 export default class UserController {
     constructor(
         private readonly loginUseCase: LoginUserUseCase,
         private readonly userUseCase: UserUseCase
     ) { }
+
+
+    async getUserProfile(req: CustomRequest, res: Response, next: NextFunction) {
+        try {
+            const userId = req.user?.id!;
+            const { user } = await this.userUseCase.getUserProfile(userId);
+
+            res.status(StatusCode.Success).json(user);
+
+        } catch (error) {
+            next(error);
+        }
+    }
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
@@ -29,7 +42,7 @@ export default class UserController {
         }
     }
 
-    async refreshToken(req: Request, res: Response, next: NextFunction){
+    async refreshToken(req: Request, res: Response, next: NextFunction) {
         try {
             const userToken = req.cookies?.user_token;
 
@@ -41,7 +54,7 @@ export default class UserController {
 
             res.status(StatusCode.Success).json({ accessToken });
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 }

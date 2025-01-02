@@ -8,6 +8,7 @@ import { toast } from '@/hooks/use-toast';
 import CreateCandidateModal from '@/components/CreateCandidateModel';
 import CandidateList from '@/components/CandidateList';
 import Authenticated from '@/hoc/Authenticated';
+import Loader from '@/components/Loader';
 
 
 const AdminHomePage = () => {
@@ -53,7 +54,9 @@ const AdminHomePage = () => {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <p>Loading candidates...</p>
+              <div className='py-16'>
+              <Loader />
+              </div>
             ) : (
               <CandidateList setCandidates={setCandidates} candidates={candidates} />
             )}

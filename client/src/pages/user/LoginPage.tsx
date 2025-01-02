@@ -13,8 +13,6 @@ const LoginPage = () => {
       localStorage.setItem("user_token", accessToken);
       window.location.href = "/";
     } catch (error: any) {
-      console.log(error);
-
       setError(error.response.data.message || "unknown error occurred");
     }
   }, []);

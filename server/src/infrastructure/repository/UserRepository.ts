@@ -26,7 +26,7 @@ export default class UserRepository implements IUserRepository {
     }
 
     async findById(id: string): Promise<IUser | null> {
-        return await this.model.findById(id);
+        return await this.model.findById(id).select("-password");
     }
 
     async delete(id: string): Promise<void> {
@@ -34,6 +34,6 @@ export default class UserRepository implements IUserRepository {
     }
 
     async getAll(): Promise<IUser[]> {
-        return await this.model.find();
+        return await this.model.find().select("-password");
     }
 }
