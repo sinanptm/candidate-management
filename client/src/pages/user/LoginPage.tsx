@@ -5,7 +5,7 @@ import { memo, useCallback, useState } from "react";
 const LoginPage = () => {
   const [error, setError] = useState<string | undefined>();
   const handleSubmit = useCallback(async (email: string, password: string) => {
-    console.log(email, password);
+    
   }, []);
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">

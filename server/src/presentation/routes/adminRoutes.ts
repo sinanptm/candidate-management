@@ -21,6 +21,7 @@ const adminAuthMiddleware = new AdminAuthMiddleWare(tokenService);
 
 adminRoutes.post("/login", adminController.login.bind(adminController));
 adminRoutes.delete('/logout', adminController.logout.bind(adminController));
+adminRoutes.post("/refresh",adminController.refreshToken.bind(adminController));
 
 adminRoutes.use(adminAuthMiddleware.exec.bind(adminAuthMiddleware));
 

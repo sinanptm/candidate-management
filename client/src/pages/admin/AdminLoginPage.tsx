@@ -12,7 +12,7 @@ const AdminLoginPage = () => {
       localStorage.setItem("admin_token", accessToken);
       window.location.href = "/admin";
     } catch (error: any) {
-      setError(error.response.data.message);
+      setError(error.response.data.message || "unknown error occurred");
     }
   }, []);
   return (

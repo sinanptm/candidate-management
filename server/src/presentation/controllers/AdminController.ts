@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import AuthAdminUseCase from "../../use_case/auth/AuthAdminUseCase";
 import { StatusCode } from "../../types";
 import AdminUseCase from "../../use_case/AdminUseCase";
+import { NODE_ENV } from "../../config/env";
 
 export default class AdminController {
     constructor(
@@ -41,16 +42,15 @@ export default class AdminController {
         }
     }
 
-    async login(req: Request, res: Response, next: NextFunction) {
+    async refreshToken(req: Request, res: Response, next: NextFunction) {
         try {
-            const { username, password } = req.body;
-            const { accessToken, refreshToken } = await this.authUseCase.exec(username, password);
+            const adminToken = req.cookies?.admin_token;
 
-            res.cookie("admin_token", refreshToken, {
-                httpOnly: true,
-                maxAge: 6000 * 30,
-                secure: true
-            });
+            if (!adminToken) {
+                res.status(StatusCode.Forbidden).json({ message: "Unauthenticated: Not token provided" });
+                return;
+            };
+            const { accessToken } = await this.authUseCase.refreshAccessToken(adminToken);
 
             res.status(StatusCode.Success).json({ accessToken });
         } catch (error) {
@@ -58,7 +58,27 @@ export default class AdminController {
         }
     }
 
-    async logout(req: Request, res: Response, next: NextFunction) {
+    async login(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { username, password } = req.body;
+            const { accessToken, refreshToken } = await this.authUseCase.exec(username, password);
+
+            res.cookie("admin_token", refreshToken, {
+                httpOnly: true,
+                maxAge: 30 * 24 * 60 * 60 * 1000, 
+                sameSite: 'lax',  
+                secure: NODE_ENV === 'production',
+                path: '/'
+            });
+
+
+            res.status(StatusCode.Success).json({ accessToken });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async logout(req: Request, res: Response) {
         res.clearCookie("admin_token");
         res.status(StatusCode.Success).json({ message: "Cookie Cleared" });
     }
