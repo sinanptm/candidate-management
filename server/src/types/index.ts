@@ -31,3 +31,8 @@ export interface CustomRequest extends Request {
         email: string;
     };
 }
+
+export enum UploadTypes {
+    Resume = 'resume',
+    Profile = 'profile'
+}

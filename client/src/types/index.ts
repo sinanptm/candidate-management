@@ -26,3 +26,8 @@ export interface IUser {
     readonly profile?: string;
     readonly resume?: string;
 }
+
+export enum UploadTypes {
+    Resume = 'resume',
+    Profile = 'profile'
+}

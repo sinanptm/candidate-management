@@ -10,7 +10,29 @@ export default class UserController {
         private readonly userUseCase: UserUseCase
     ) { }
 
-    async updateUserProfile(req: CustomRequest, res: Response, next: NextFunction){
+    async updateFile(req: CustomRequest, res: Response, next: NextFunction) {
+        try {
+            const { key, type } = req.body;
+            const { user } = await this.userUseCase.updateFile(req.user?.id!, key, type);
+
+            res.status(StatusCode.Success).json(user);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async createPresignedUrl(req: CustomRequest, res: Response, next: NextFunction) {
+        try {
+            const { type } = req.body;
+            const { key, url } = await this.userUseCase.createPresignedUrl(type);
+
+            res.status(StatusCode.Success).json({ key, url });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async updateUserProfile(req: CustomRequest, res: Response, next: NextFunction) {
         try {
             const userId = req.user?.id!;
             const data = req.body;
@@ -19,7 +41,7 @@ export default class UserController {
 
             res.status(StatusCode.Success).json(user);
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 
