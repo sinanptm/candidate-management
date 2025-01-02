@@ -10,6 +10,18 @@ export default class UserController {
         private readonly userUseCase: UserUseCase
     ) { }
 
+    async updateUserProfile(req: CustomRequest, res: Response, next: NextFunction){
+        try {
+            const userId = req.user?.id!;
+            const data = req.body;
+
+            const { user } = await this.userUseCase.updateUserProfile(userId, data);
+
+            res.status(StatusCode.Success).json(user);
+        } catch (error) {
+            next(error)
+        }
+    }
 
     async getUserProfile(req: CustomRequest, res: Response, next: NextFunction) {
         try {

@@ -24,6 +24,6 @@ userRoutes.post("/login", userController.login.bind(userController));
 
 userRoutes.use(userAuthMiddleware.exec.bind(userAuthMiddleware));
 userRoutes.get("/profile", userController.getUserProfile.bind(userController));
-
+userRoutes.put("/profile", userController.updateUserProfile.bind(userController));
 
 export default userRoutes;

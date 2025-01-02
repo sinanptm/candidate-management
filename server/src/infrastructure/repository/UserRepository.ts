@@ -18,7 +18,7 @@ export default class UserRepository implements IUserRepository {
     }
 
     async update(id: string, user: IUser): Promise<IUser | null> {
-        return this.model.findByIdAndUpdate(id, user);
+        return this.model.findByIdAndUpdate(id, user).select("-password");
     }
 
     async findByEmail(email: string): Promise<IUser | null> {

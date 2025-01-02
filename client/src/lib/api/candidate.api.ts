@@ -57,7 +57,12 @@ export const userLogin = async (email: string, password: string) => {
     return response.data;
 };
 
-export const getUserProfile = async ():Promise<IUser> => {
+export const getUserProfile = async (): Promise<IUser> => {
     const response = await instance.get("/profile");
+    return response.data;
+};
+
+export const updateUserProfile = async (user: IUser):Promise<IUser> => {
+    const response = await instance.put("/profile", user);
     return response.data;
 };

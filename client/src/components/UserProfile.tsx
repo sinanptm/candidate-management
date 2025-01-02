@@ -1,14 +1,23 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { IUser } from '@/types';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import UpdateUserProfile from './UpdateUserProfile';
+import { updateUserProfile } from '@/lib/api/candidate.api';
 
 interface UserProfileProps {
     user: IUser;
+    setUser:Dispatch<SetStateAction<IUser | null>>;
 }
 
-const UserProfile: FC<UserProfileProps> = ({ user }) => {
+const UserProfile: FC<UserProfileProps> = ({ user, setUser }) => {
+    const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+
+    const updateUser = useCallback(async (user: IUser) => {
+        await updateUserProfile(user);
+    }, []);
+
+
     return (
         <Card className="w-full max-w-2xl mx-auto">
             <CardHeader>
@@ -17,10 +26,13 @@ const UserProfile: FC<UserProfileProps> = ({ user }) => {
             <CardContent className="space-y-4">
                 <div className="flex justify-center">
                     {user.profile ? (
-                        <Avatar>
-                            <AvatarImage src={user.profile} alt={user.name} />
-                            <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
-                        </Avatar>
+                        <img
+                            src={user.profile}
+                            alt={user.name || 'User profile'}
+                            width={150}
+                            height={150}
+                            className="rounded-full"
+                        />
                     ) : (
                         <div className="w-[150px] h-[150px] bg-gray-200 rounded-full flex items-center justify-center">
                             <span className="text-4xl text-gray-500">
@@ -44,6 +56,15 @@ const UserProfile: FC<UserProfileProps> = ({ user }) => {
                         </Button>
                     </div>
                 )}
+                <div className="flex justify-center">
+                    <UpdateUserProfile
+                        open={isUpdateDialogOpen}
+                        setOpen={setIsUpdateDialogOpen}
+                        updateUser={updateUser}
+                        user={user}
+                        setUser={setUser}
+                    />
+                </div>
             </CardContent>
         </Card>
     );

@@ -49,7 +49,7 @@ const HomePage = () => {
             </div>
           ) : user ? (
             <div>
-              <UserProfile user={user} />
+              <UserProfile setUser={setUser} user={user} />
             </div>
           ) : (
             <div className="text-center py-10">
