@@ -28,7 +28,7 @@ export default class TokenService implements ITokenService {
         return { email, id };
     }
     createAccessToken(email: string, id: string, role: UserRole): string {
-        const time = NODE_ENV === "production" ? "15m" : "5s";
+        const time = NODE_ENV === "production" ? "15m" : "2d";
         return this.createToken({ email, id, role }, ACCESS_TOKEN_SECRET, time);
     }
     verifyAccessToken(token: string): { email: string; id: string; role: UserRole; } {
