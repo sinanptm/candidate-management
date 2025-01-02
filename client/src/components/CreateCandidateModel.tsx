@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { createCandidate } from '@/lib/api/admin.api';
-import IUser from '@/types';
+import {IUser} from '@/types';
 import { toast } from '@/hooks/use-toast';
 
 interface CreateCandidateProps {

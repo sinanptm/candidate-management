@@ -15,7 +15,7 @@ export type AuthenticatedProps = {
     role: UserRole;
 };
 
-export default interface IUser {
+export interface IUser {
     readonly _id?: string;
     readonly name?: string;
     readonly password?: string;
