@@ -1,5 +1,5 @@
 import { AuthenticatedProps } from "@/types";
-import { getToken } from "../utils";
+import { getToken } from "../lib/utils";
 import { memo, useMemo } from "react";
 
 const Authenticated = ({ children, role }: AuthenticatedProps) => {
@@ -9,7 +9,7 @@ const Authenticated = ({ children, role }: AuthenticatedProps) => {
     return <div>Not Authenticated</div>;
   }
 
-  return <>{children}</>;
+  return <section>{children}</section>;
 };
 
 export default memo(Authenticated); 

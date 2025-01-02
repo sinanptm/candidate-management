@@ -32,7 +32,9 @@ export default class AdminUseCase {
     private validateUser(user: IUser) {
         if (!isValidString(user.name)) {
             throw new ValidationError("User name is required");
-        } else if (!isValidString(user.password) && user.password!.length < 4) {
+        }
+
+        if (!isValidString(user.password) || user.password!.length < 4) {
             throw new ValidationError("Password must be at least 4 characters long");
         }
 

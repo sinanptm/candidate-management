@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../utils";
+import { getToken } from "../lib/utils";
 import { NotAuthenticatedProps } from "@/types";
 
 const NotAuthenticated = ({ children, role, redirectTo = "/" }: NotAuthenticatedProps) => {
