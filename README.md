@@ -24,11 +24,9 @@ A modern, secure, and scalable system for managing candidates with role-based ac
 - 👑 **Admin Dashboard**
   - Complete candidate management
   - System overview and analytics
-  - Bulk operations support
 - 👤 **Candidate Portal**
   - Self-service profile management
   - Document uploads
-  - Progress tracking
 
 ### 📁 Secure File Management System
 - 🔒 **Presigned URL Implementation**
@@ -49,8 +47,6 @@ A modern, secure, and scalable system for managing candidates with role-based ac
   - Temporary URL expiration
   - File type validation
   - Size restrictions
-  - Virus scanning
-  - Content validation
 
 - 📤 **Upload Process**
   1. Client requests secure upload URL
@@ -70,8 +66,6 @@ A modern, secure, and scalable system for managing candidates with role-based ac
     "🎨 Tailwind CSS",
     "🧩 Shadcn UI"
   ],
-  "state": "🔄 Redux Toolkit",
-  "routing": "🛣️ React Router",
   "forms": "📋 React Hook Form"
 }
 ```
@@ -177,13 +171,72 @@ VITE_API_URL=your_backend_api_url
   - CORS configuration
   - Request validation
 
+## 🔌 API Endpoints
 
-## 📞 Support
+### 👑 Admin Routes
+Base path: `/api/admin`
 
-- 📧 Open GitHub issue
-- 🌟 Star repository if helpful
-- 🔄 Fork for improvements
+#### Authentication
+- **POST** `/login`
+  - Admin login endpoint
+  - Requires admin credentials
 
+- **DELETE** `/logout`
+  - Admin logout endpoint
+  - Invalidates current session
+
+- **POST** `/refresh`
+  - Refresh access token
+  - Requires valid refresh token
+
+#### Candidate Management
+*Requires admin authentication*
+
+- **POST** `/candidates/create`
+  - Create new candidate account
+  - Requires candidate details in request body
+
+- **DELETE** `/candidates/:id`
+  - Delete candidate account
+  - Requires candidate ID as URL parameter
+
+- **GET** `/candidates`
+  - Retrieve all candidates
+  - Optional query parameters for filtering
+
+### 👤 User (Candidate) Routes
+Base path: `/api`
+
+#### Authentication
+- **POST** `/login`
+  - Candidate login endpoint
+  - Requires email and password
+
+- **DELETE** `/logout`
+  - Candidate logout endpoint
+  - Invalidates current session
+
+#### Profile Management
+*Requires user authentication*
+
+- **GET** `/profile`
+  - Retrieve candidate profile
+  - Returns complete profile information
+
+- **PUT** `/profile`
+  - Update candidate profile
+  - Requires updated profile data in request body
+
+#### File Management
+*Requires user authentication*
+
+- **PATCH** `/create-url`
+  - Generate presigned URL for file upload
+  - Returns temporary S3 upload URL
+
+- **PUT** `/update-file`
+  - Update file information after upload
+  - Requires file metadata in request body
 ---
 <div align="center">
 Made with ❤️ by the sinaptm
