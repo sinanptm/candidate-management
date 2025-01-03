@@ -1,5 +1,5 @@
 import { IUser } from "@/types";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import { CandidateDetailsModal } from "./CandidateDetailsModel";
 import { DeleteConfirmationModal } from "./DeleteCandidateModel";

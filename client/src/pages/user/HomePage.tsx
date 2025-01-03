@@ -2,7 +2,7 @@ import Authenticated from "@/hoc/Authenticated";
 import { getUserProfile } from "@/lib/api/candidate.api";
 import { IUser, UserRole } from "@/types";
 import { memo, useEffect, useState } from "react";
-import UserProfile from "@/components/UserProfile";
+import UserProfile from "@/components/profile/UserProfile";
 import Loader from "@/components/Loader";
 
 const HomePage = () => {

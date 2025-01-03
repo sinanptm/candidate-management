@@ -5,10 +5,10 @@ import { IUser, UserRole } from '@/types';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from '@/hooks/use-toast';
-import CreateCandidateModal from '@/components/CreateCandidateModel';
-import CandidateList from '@/components/CandidateList';
+import CreateCandidateModal from '@/components/admin/CreateCandidateModel';
 import Authenticated from '@/hoc/Authenticated';
 import Loader from '@/components/Loader';
+import CandidateList from '@/components/admin/CandidateList';
 
 
 const AdminHomePage = () => {

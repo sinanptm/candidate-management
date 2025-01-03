@@ -28,5 +28,6 @@ userRoutes.use(userAuthMiddleware.exec.bind(userAuthMiddleware));
 userRoutes.get("/profile", userController.getUserProfile.bind(userController));
 userRoutes.put("/profile", userController.updateUserProfile.bind(userController));
 userRoutes.patch("/create-url",userController.createPresignedUrl.bind(userController));
+userRoutes.put("/update-file",userController.updateFile.bind(userController));
 
 export default userRoutes;

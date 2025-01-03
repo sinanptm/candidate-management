@@ -1,7 +1,7 @@
 import { baseURL } from '@/config';
 import axios from 'axios';
 import { getToken } from '../utils';
-import { IUser, UserRole } from '@/types';
+import { IUser, UploadTypes, UserRole } from '@/types';
 
 const instance = axios.create({
     baseURL,
@@ -62,7 +62,36 @@ export const getUserProfile = async (): Promise<IUser> => {
     return response.data;
 };
 
-export const updateUserProfile = async (user: IUser):Promise<IUser> => {
+export const updateUserProfile = async (user: IUser): Promise<IUser> => {
     const response = await instance.put("/profile", user);
     return response.data;
+};
+
+export const createPresignedUrl = async (type: UploadTypes): Promise<{ key: string, url: string; }> => {
+    const response = await instance.patch("/create-url", { type });
+    return response.data;
+};
+
+export const updateFile = async (type: UploadTypes, key: string):Promise<IUser> => {
+    const response = await instance.put("/update-file", { key, type });
+    return response.data;
+};
+
+export   const uploadFile = async (file: File, url: string) => {
+    try {
+        const response = await axios.put(url, file, {
+            headers: {
+                'Content-Type': file.type,  
+            }
+        });
+        
+        if (response.status !== 200) {
+            throw new Error('Upload failed');
+        }
+        
+        return response;
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        throw error;
+    }
 };

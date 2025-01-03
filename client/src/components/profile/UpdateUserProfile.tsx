@@ -2,10 +2,10 @@
 
 import { useState, FormEvent, ChangeEvent, Dispatch, SetStateAction, memo, useCallback } from "react";
 import { IUser } from "@/types";
-import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 type Props = {
     open: boolean;
@@ -74,7 +74,7 @@ const UpdateUserProfile = ({ open, setOpen, updateUser, user, setUser }: Props) 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Update Profile</Button>
+                <Button variant="outline">Update Details ✏️</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
