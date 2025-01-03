@@ -57,6 +57,11 @@ export const adminLogin = async (username: string, password: string) => {
     return response.data;
 };
 
+export const adminLogout = async()=>{
+    const response = await instance.delete('/logout');
+    return response.data;
+}
+
 export const getCandidates = async () => {
     const response = await instance.get('/candidates');
     return response.data;

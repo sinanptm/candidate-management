@@ -57,6 +57,11 @@ export const userLogin = async (email: string, password: string) => {
     return response.data;
 };
 
+export const userLogout = async () => {
+    const response = await instance.delete("/logout");
+    return response.data;
+}
+
 export const getUserProfile = async (): Promise<IUser> => {
     const response = await instance.get("/profile");
     return response.data;

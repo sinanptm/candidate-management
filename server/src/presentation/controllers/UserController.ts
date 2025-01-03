@@ -91,4 +91,13 @@ export default class UserController {
             next(error);
         }
     }
+
+    async logout(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.clearCookie("user_token");
+            res.status(StatusCode.Success).json({ message: "Logout successful" });
+        } catch (error) {
+            next(error);
+        }
+    }
 }

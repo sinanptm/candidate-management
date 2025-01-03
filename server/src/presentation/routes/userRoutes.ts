@@ -23,6 +23,7 @@ const userAuthMiddleware = new UserAuthMiddleware(tokenService);
 
 
 userRoutes.post("/login", userController.login.bind(userController));
+userRoutes.delete("/logout", userController.logout.bind(userController));
 
 userRoutes.use(userAuthMiddleware.exec.bind(userAuthMiddleware));
 userRoutes.get("/profile", userController.getUserProfile.bind(userController));
