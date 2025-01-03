@@ -22,11 +22,21 @@ const LoginForm = ({ onSubmit, isAdmin, error, setError }: Props) => {
   const [password, setPassword] = useState<string | null>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (!email?.trim() || !password?.trim()) {
-        return setError("Please fill in all fields");
-      }
-      await onSubmit(email, password);
+    e.preventDefault();
+    if (!email?.trim() || !password?.trim()) {
+      return setError("Please fill in all fields");
+    }
+    await onSubmit(email, password);
+  };
+
+  const fillDemoCredentials = () => {
+    if (isAdmin) {
+      setEmail("admin@gmail.com");
+      setPassword("fjfj");
+    } else {
+      setEmail("demouser@gmail.com");
+      setPassword("fjfj");
+    }
   };
 
   return (
@@ -51,6 +61,7 @@ const LoginForm = ({ onSubmit, isAdmin, error, setError }: Props) => {
                   <Input
                     id="email"
                     type="email"
+                    value={email || ""}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="john@example.com"
                   />
@@ -62,15 +73,26 @@ const LoginForm = ({ onSubmit, isAdmin, error, setError }: Props) => {
                   <Input
                     id="password"
                     type="password"
+                    value={password || ""}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 {error && (
                   <span className="text-red-500 text-sm">{error}</span>
                 )}
-                <Button type="submit" className="w-full">
-                  {isAdmin ? "Login as Admin" : "Login"}
-                </Button>
+                <div className="grid gap-4">
+                  <Button type="submit" className="w-full">
+                    {isAdmin ? "Login as Admin" : "Login"}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={fillDemoCredentials}
+                  >
+                    Use Demo Credentials
+                  </Button>
+                </div>
               </div>
               {!isAdmin ? (
                 <div className="text-center text-sm">

@@ -6,15 +6,17 @@ import AdminController from "../controllers/AdminController";
 import AdminAuthMiddleWare from "../middlewares/AdminAuthMiddleware";
 import AdminUseCase from "../../use_case/AdminUseCase";
 import HashService from "../../infrastructure/service/HashService";
+import CloudService from "../../infrastructure/service/CloudService";
 
 const adminRoutes = Router();
 
 const userRepository = new UserRepository();
 const tokenService = new TokenService();
-const hashService = new HashService()
+const hashService = new HashService();
+const cloudService = new CloudService()
 
 const authAdminUseCase = new AuthAdminUseCase(userRepository, tokenService);
-const adminUseCase = new AdminUseCase(userRepository, hashService);
+const adminUseCase = new AdminUseCase(userRepository, hashService, cloudService);
 const adminController = new AdminController(authAdminUseCase, adminUseCase);
 const adminAuthMiddleware = new AdminAuthMiddleWare(tokenService);
 

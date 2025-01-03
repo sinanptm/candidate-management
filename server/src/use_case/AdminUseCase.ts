@@ -1,13 +1,16 @@
+import { AWS_BUCKET_NAME } from "../config/env";
 import { ValidationError } from "../domain/entities/CustomErrors";
 import IUser from "../domain/entities/IUser";
 import IUserRepository from "../domain/interfaces/IUserRepository";
+import ICloudService from "../domain/interfaces/services/ICloudService";
 import IHashService from "../domain/interfaces/services/IHashService";
 import { isValidString } from "../utils";
 
 export default class AdminUseCase {
     constructor(
         private readonly userRepository: IUserRepository,
-        private readonly hasService: IHashService
+        private readonly hasService: IHashService, 
+        private readonly cloudService: ICloudService
     ) { }
 
     async getUsers() {
@@ -22,8 +25,15 @@ export default class AdminUseCase {
     }
 
     async deleteUser(id: string) {
-        if (!isValidString(id) || !await this.userRepository.findById(id)) {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
             throw new ValidationError("Invalid user id");
+        }
+        if(user.resume){
+            await this.cloudService.deleteFile(AWS_BUCKET_NAME!, user.resume?.split("amazonaws.com/").pop()!);
+        }
+        if(user.profile){
+            await this.cloudService.deleteFile(AWS_BUCKET_NAME!, user.profile?.split("amazonaws.com/").pop()!);
         }
 
         await this.userRepository.delete(id);

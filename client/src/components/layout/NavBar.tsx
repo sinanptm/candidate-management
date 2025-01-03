@@ -17,10 +17,13 @@ const NavBar = () => {
     const handleLogout = useCallback(async () => {
         try {
             if (isAdminRoute) {
+                localStorage.removeItem('admin_token');
                 await adminLogout();
             } else {
+                localStorage.removeItem('user_token');
                 await userLogout();
             }
+            window.location.reload();
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
